@@ -1,4 +1,5 @@
 import random
+from Rules import Rules
 
 colomn_range = 3
 blank = "-"
@@ -9,28 +10,29 @@ game_board = [
     [blank for i in range(colomn_range)]
 ]
 
-def rules(num, symbol):
-    cases = {
-        1: game_board[0][0],
-        2: game_board[0][1],
-        3: game_board[0][2],
-        4: game_board[1][0],
-        5: game_board[1][1],
-        6: game_board[1][2],
-        7: game_board[2][0],
-        8: game_board[2][1],
-        9: game_board[2][2]
-    }
-    cases.get(num, "Invalid input")
-    board_format(game_board)
+player1 = Rules(game_board)
 
-def board_format(board):
-    print("Tic Tac Toe")
-    for row in board:
-        print("{: >20} {: >20} {: >20}".format(*row))
+def play():
 
-#def play():
+    symbol = ""
 
-#board_format(game_board)
+    while True:
+        symbol = input("Choose your symbol (O or X): ")
+        if (symbol == "O" or symbol == "o") or (symbol == "X" or symbol == "x"):
+            print("Success")
+            break
+        else:
+            print("Wrong input! \nTry again !")
+    while True:
+        player1.get_board()
+        player_input = int(input("Choose a position from 1 to 9"))
+        player1.set_board(player_input, symbol)
+        
 
-rules(int(input("enter a num: ")), "O")
+
+
+
+
+
+
+play()
