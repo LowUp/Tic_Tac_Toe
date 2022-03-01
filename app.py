@@ -22,8 +22,8 @@ game_board = [
     [blank for i in range(colomn_range)]
 ]
 
-player1 = Rules(game_board, input("Enter your player username: "))
-player2 = Rules(game_board, input("Enter your player username: "))
+player1 = Rules(game_board, input("Player 1 enter your username: "))
+player2 = Rules(game_board, input("Player 2 enter your username: "))
 ref_board = Rules(reference_board, "0")
 
 
@@ -69,7 +69,7 @@ def check_diagonals(playerName, playerSymbol):
         if diagonal == win:
             print("Tic Tac Toe")
             player1.get_board()
-            print(f"\n{playerName} wins")
+            print(f"\n{playerName} WINS")
             return True
 
 
