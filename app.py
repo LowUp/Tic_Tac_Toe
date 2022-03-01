@@ -2,6 +2,9 @@ import random
 from Rules import Rules
 
 colomn_range = 3
+rows_number = 3
+columns_number = 3
+diagonals_number = 2
 blank = "-"
 row_1 = 1
 row_2 = 4
@@ -19,9 +22,10 @@ game_board = [
     [blank for i in range(colomn_range)]
 ]
 
-player1 = Rules(game_board)
-player2 = Rules(game_board)
-ref_board = Rules(reference_board)
+player1 = Rules(game_board, "1")
+player2 = Rules(game_board, "2")
+ref_board = Rules(reference_board, "0")
+
 
 def player_details():
     print("Reference board")
@@ -29,8 +33,49 @@ def player_details():
     print("Tic Tac Toe")
     player1.get_board()
 
+
+def check_rows(playerName, playerSymbol):
+
+    win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
+
+    for i in range(rows_number):
+        row = ''.join(player1.get_row(i))
+        if row == win:
+            print("Tic Tac Toe")
+            player1.get_board()
+            print(f"\n{playerName} wins")
+            return True
+
+
+def check_columns(playerName, playerSymbol):
+
+    win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
+
+    for i in range(columns_number):
+        column = ''.join(player1.get_column(i))
+        if column == win:
+            print("Tic Tac Toe")
+            player1.get_board()
+            print(f"\n{playerName} wins")
+            return True
+
+
+def check_diagonals(playerName, playerSymbol):
+
+    win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
+
+    for i in range(diagonals_number):
+        diagonal = ''.join(player1.get_diagonal(i))
+        if diagonal == win:
+            print("Tic Tac Toe")
+            player1.get_board()
+            print(f"\n{playerName} wins")
+            return True
+
+
 def play():
 
+    # Players choose symbols (X or O)
     played_position = ["" for i in range(9)]
     counter = 0
 
@@ -46,6 +91,8 @@ def play():
                 break
         else:
             print("Wrong input! \nTry again !")
+
+    # Players choose their position of play
     while True:
         try:
             flag1 = True
@@ -63,19 +110,31 @@ def play():
                     counter += 1
                     print(f"played position {played_position}")
 
+                    # Checks if the player wins the game
+                    if check_rows(player1.get_player_name(), player1_symbol.upper()) \
+                            or check_columns(player1.get_player_name(), player1_symbol.upper())\
+                            or check_diagonals(player1.get_player_name(), player1_symbol.upper()):
+                        return True
+
             flag2 = True
             while flag2:
                 player_details()
                 player2_input = int(input("Player 2 choose a position from 1 to 9: "))
 
                 if player2_input in played_position:
-                    print("This position has already been played\n Retry")
+                    print("This position has already been played\nRetry")
                 else:
                     flag2 = False
                     player2.set_board(player2_input, player2_symbol.upper())
                     played_position[counter] = player2_input
                     counter += 1
                     print(f"played position {played_position}")
+
+                    # Checks if the player wins the game
+                    if check_rows(player2.get_player_name(), player2_symbol.upper())\
+                            or check_columns(player2.get_player_name(), player2_symbol.upper())\
+                            or check_diagonals(player2.get_player_name(), player2_symbol.upper()):
+                        return True
 
         except(ValueError):
             print("Wrong input")
