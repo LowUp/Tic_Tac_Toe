@@ -1,4 +1,4 @@
-class Rules:
+class Player:
 
     def __init__(self, game_board, player_number):
         self.game_board = game_board

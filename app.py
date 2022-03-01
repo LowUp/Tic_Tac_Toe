@@ -1,5 +1,4 @@
-import random
-from Rules import Rules
+from Rules import Player
 
 colomn_range = 3
 rows_number = 3
@@ -22,9 +21,9 @@ game_board = [
     [blank for i in range(colomn_range)]
 ]
 
-player1 = Rules(game_board, input("Player 1 enter your username: "))
-player2 = Rules(game_board, input("Player 2 enter your username: "))
-ref_board = Rules(reference_board, "0")
+player1 = Player(game_board, input("Player 1 enter your username: "))
+player2 = Player(game_board, input("Player 2 enter your username: "))
+ref_board = Player(reference_board, "0")
 
 
 def player_details():
