@@ -22,8 +22,8 @@ game_board = [
     [blank for i in range(colomn_range)]
 ]
 
-player1 = Rules(game_board, "1")
-player2 = Rules(game_board, "2")
+player1 = Rules(game_board, input("Enter your player username: "))
+player2 = Rules(game_board, input("Enter your player username: "))
 ref_board = Rules(reference_board, "0")
 
 
@@ -80,7 +80,7 @@ def play():
     counter = 0
 
     while True:
-        player1_symbol = input("Player 1 choose your symbol (O or X): ")
+        player1_symbol = input(f"{player1.get_player_name()} choose your symbol (O or X): ")
         if (player1_symbol == "O" or player1_symbol == "o") or (player1_symbol == "X" or player1_symbol == "x"):
             print("Success")
             if player1_symbol == "O" or player1_symbol == "o":
@@ -98,43 +98,55 @@ def play():
             flag1 = True
             while flag1:
                 player_details()
-                player1_input = int(input(f"Player 1 choose a position from 1 to 9: "))
+                player1_input = int(input(f"{player1.get_player_name()} choose a position from 1 to 9: "))
 
                 if player1_input in played_position:
                     print("This position has already been played\nRetry !")
 
-                else:
+                elif player1_input in range(1,10):
                     flag1 = False
                     player1.set_board(player1_input, player1_symbol.upper())
                     played_position[counter] = player1_input
                     counter += 1
                     print(f"played position {played_position}")
 
-                    # Checks if the player wins the game
+                    # Checks if the player wins the game or if tie
                     if check_rows(player1.get_player_name(), player1_symbol.upper()) \
                             or check_columns(player1.get_player_name(), player1_symbol.upper())\
                             or check_diagonals(player1.get_player_name(), player1_symbol.upper()):
                         return True
+                    elif counter >= 9:
+                        player_details()
+                        print("\n Tie")
+                        return True
+                else:
+                    print("Wrong input !")
 
             flag2 = True
             while flag2:
                 player_details()
-                player2_input = int(input("Player 2 choose a position from 1 to 9: "))
+                player2_input = int(input(f"{player2.get_player_name()} choose a position from 1 to 9: "))
 
                 if player2_input in played_position:
                     print("This position has already been played\nRetry")
-                else:
+                elif player2_input in range(1,10):
                     flag2 = False
                     player2.set_board(player2_input, player2_symbol.upper())
                     played_position[counter] = player2_input
                     counter += 1
                     print(f"played position {played_position}")
 
-                    # Checks if the player wins the game
+                    # Checks if the player wins the game or if tie
                     if check_rows(player2.get_player_name(), player2_symbol.upper())\
                             or check_columns(player2.get_player_name(), player2_symbol.upper())\
                             or check_diagonals(player2.get_player_name(), player2_symbol.upper()):
                         return True
+                    elif counter >= 9:
+                        player_details()
+                        print("\n Tie")
+                        return True
+                else:
+                    print("Wrong input !")
 
         except(ValueError):
             print("Wrong input")

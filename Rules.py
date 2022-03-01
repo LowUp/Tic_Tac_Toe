@@ -55,4 +55,4 @@ class Rules:
             return diagonal
 
     def get_player_name(self):
-        return f"player {self.player_number}"
+        return f"{self.player_number}"
