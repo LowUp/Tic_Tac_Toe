@@ -150,7 +150,7 @@ def play():
 
                 elif player2_input in range(1,10):
                     if player2_username == "AI":
-                        time.sleep(1)
+                        time.sleep(0.5)
                     flag2 = False
                     player2.set_board(player2_input, player2_symbol.upper())
                     played_position[counter] = player2_input
