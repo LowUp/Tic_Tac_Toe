@@ -1,6 +1,9 @@
-from Rules import Player
+import time
 
-colomn_range = 3
+from Rules import Player
+from Rules import ComputerPlayer
+import random
+
 rows_number = 3
 columns_number = 3
 diagonals_number = 2
@@ -10,20 +13,28 @@ row_2 = 4
 row_3 = 7
 
 reference_board = [
-    [row_3 + i for i in range(colomn_range)],
-    [row_2 + i for i in range(colomn_range)],
-    [row_1 + i for i in range(colomn_range)]
+    [row_3 + i for i in range(rows_number)],
+    [row_2 + i for i in range(rows_number)],
+    [row_1 + i for i in range(rows_number)]
 ]
 
 game_board = [
-    [blank for i in range(colomn_range)],
-    [blank for i in range(colomn_range)],
-    [blank for i in range(colomn_range)]
+    [blank for i in range(rows_number)],
+    [blank for i in range(rows_number)],
+    [blank for i in range(rows_number)]
 ]
 
-player1 = Player(game_board, input("Player 1 enter your username: "))
-player2 = Player(game_board, input("Player 2 enter your username: "))
+player1 = Player(game_board, input("Player 1 enter your username: ").upper())
 ref_board = Player(reference_board, "0")
+
+# Decides if player 2 will be an AI or a human player
+player2_username = input("Player 2 enter your username: ").upper()
+
+if player2_username == "AI":
+    player2 = ComputerPlayer(game_board, player2_username)
+else:
+    player2 = Player(game_board, player2_username)
+
 
 
 def player_details():
@@ -68,7 +79,7 @@ def check_diagonals(playerName, playerSymbol):
         if diagonal == win:
             print("Tic Tac Toe")
             player1.get_board()
-            print(f"\n{playerName} WINS")
+            print(f"\n{playerName} wins")
             return True
 
 
@@ -94,6 +105,8 @@ def play():
     # Players choose their position of play
     while True:
         try:
+
+            # Player 1 conditions to play
             flag1 = True
             while flag1:
                 player_details()
@@ -121,14 +134,23 @@ def play():
                 else:
                     print("Wrong input !")
 
+            # Player 2 conditions to play
             flag2 = True
             while flag2:
                 player_details()
-                player2_input = int(input(f"{player2.get_player_name()} choose a position from 1 to 9: "))
+
+                if player2_username == "AI":
+                    player2_input = random.randint(1,9)
+                else:
+                    player2_input = int(input(f"{player2.get_player_name()} choose a position from 1 to 9: "))
 
                 if player2_input in played_position:
-                    print("This position has already been played\nRetry")
+                    if player2_username != "AI":
+                        print("This position has already been played\nRetry")
+
                 elif player2_input in range(1,10):
+                    if player2_username == "AI":
+                        time.sleep(1)
                     flag2 = False
                     player2.set_board(player2_input, player2_symbol.upper())
                     played_position[counter] = player2_input

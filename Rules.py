@@ -1,8 +1,8 @@
 class Player:
 
-    def __init__(self, game_board, player_number):
+    def __init__(self, game_board, player_name):
         self.game_board = game_board
-        self.player_number = player_number
+        self.player_name = player_name
 
     def get_board(self):
         for row in self.game_board:
@@ -55,4 +55,40 @@ class Player:
             return diagonal
 
     def get_player_name(self):
-        return f"{self.player_number}"
+        return f"{self.player_name}"
+
+
+class ComputerPlayer(Player):
+    def __init__(self, game_board, player_name):
+        super().__init__(game_board, player_name)
+
+    def set_board(self, num, symbol):
+        if num == 7:
+            self.game_board[0][0] = symbol
+            print("The AI played at position (1,1)")
+        elif num == 8:
+            self.game_board[0][1] = symbol
+            print("The AI played at position (1,2)")
+        elif num == 9:
+            self.game_board[0][2] = symbol
+            print("The AI played at position (1,3)")
+        elif num == 4:
+            self.game_board[1][0] = symbol
+            print("The AI played at position (2,1)")
+        elif num == 5:
+            self.game_board[1][1] = symbol
+            print("The AI played at position (2,2)")
+        elif num == 6:
+            self.game_board[1][2] = symbol
+            print("The AI played at position (2,3)")
+        elif num == 1:
+            self.game_board[2][0] = symbol
+            print("The AI played at position (3,1)")
+        elif num == 2:
+            self.game_board[2][1] = symbol
+            print("The AI played at position (3,2)")
+        elif num == 3:
+            self.game_board[2][2] = symbol
+            print("The AI played at position (3,3)")
+        else:
+            print("Invalid input")
