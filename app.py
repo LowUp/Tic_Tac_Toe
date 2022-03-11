@@ -32,6 +32,7 @@ player2_username = input("Player 2 enter your username: ").upper()
 
 if player2_username == "AI":
     player2 = ComputerPlayer(game_board, player2_username)
+    possible_moves = [i + 1 for i in range(9)]  # List of moves the AI will be able to do.
 else:
     player2 = Player(game_board, player2_username)
 
@@ -116,6 +117,8 @@ def play():
                     print("This position has already been played\nRetry !")
 
                 elif player1_input in range(1,10):
+                    if player2_username == "AI":
+                        player2.deleteMove(possible_moves, player1_input)
                     flag1 = False
                     player1.set_board(player1_input, player1_symbol.upper())
                     played_position[counter] = player1_input
@@ -140,16 +143,16 @@ def play():
                 player_details()
 
                 if player2_username == "AI":
-                    player2_input = random.randint(1,9)
+                    player2_input = random.choice(possible_moves)
                 else:
                     player2_input = int(input(f"{player2.get_player_name()} choose a position from 1 to 9: "))
 
                 if player2_input in played_position:
-                    if player2_username != "AI":
-                        print("This position has already been played\nRetry")
+                    print("This position has already been played\nRetry")
 
                 elif player2_input in range(1,10):
                     if player2_username == "AI":
+                        player2.deleteMove(possible_moves, player2_input)
                         time.sleep(0.5)
                     flag2 = False
                     player2.set_board(player2_input, player2_symbol.upper())

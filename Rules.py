@@ -92,3 +92,8 @@ class ComputerPlayer(Player):
             print("The AI played at position (3,3)")
         else:
             print("Invalid input")
+
+    @staticmethod
+    def deleteMove(moves_list,num):
+        moves_list.remove(num)
+
