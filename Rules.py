@@ -1,29 +1,12 @@
+#Player class
 class Player:
 
     def __init__(self, board, player_name):
         self.player_name = player_name
         self.board = board
 
-    @staticmethod
-    def ref_board():
-        ref_board = [
-            [7 + i for i in range(3)],
-            [4 + i for i in range(3)],
-            [1 + i for i in range(3)]]
-        return ref_board
-
     def game_board(self):
         return self.board
-
-    def get_board(self):
-        print("Tic Tac Toe")
-        for row in self.game_board():
-            print("{: >20} {: >20} {: >20}".format(*row))
-
-    def get_refBoard(self):
-        print("Reference board")
-        for row in self.ref_board():
-            print("{: >20} {: >20} {: >20}".format(*row))
 
     def set_board(self, num, symbol):
         if num == 7:
@@ -55,21 +38,6 @@ class Player:
             print("You played at position (3,3)")
         else:
             print("Invalid input")
-
-    def get_row(self, num):
-        return self.game_board()[num]
-
-    def get_column(self, num):
-        column = [self.game_board()[0][num], self.game_board()[1][num], self.game_board()[2][num]]
-        return column
-
-    def get_diagonal(self, num):
-        if num == 0:
-            diagonal = [self.game_board()[0][0], self.game_board()[1][1], self.game_board()[2][2]]
-            return diagonal
-        elif num == 1:
-            diagonal = [self.game_board()[0][2], self.game_board()[1][1], self.game_board()[2][0]]
-            return diagonal
 
     def get_player_name(self):
         return f"{self.player_name}"
@@ -118,4 +86,50 @@ class ComputerPlayer(Player):
 
     def deleteMove(self, num):
         self.getPossibleMoves().remove(num)
+
+# Game class
+class Game:
+
+    def __init__(self):
+        self.board = [
+            ["-" for i in range(3)],
+            ["-" for i in range(3)],
+            ["-" for i in range(3)]
+        ]
+
+    def game_board(self):
+        return self.board
+
+    @staticmethod
+    def ref_board():
+        ref_board = [
+            [7 + i for i in range(3)],
+            [4 + i for i in range(3)],
+            [1 + i for i in range(3)]]
+        return ref_board
+
+    def get_board(self):
+        print("Tic Tac Toe")
+        for row in self.board:
+            print("{: >20} {: >20} {: >20}".format(*row))
+
+    def get_refBoard(self):
+        print("Reference board")
+        for row in self.ref_board():
+            print("{: >20} {: >20} {: >20}".format(*row))
+
+    def get_row(self, num):
+        return self.game_board()[num]
+
+    def get_column(self, num):
+        column = [self.game_board()[0][num], self.game_board()[1][num], self.game_board()[2][num]]
+        return column
+
+    def get_diagonal(self, num):
+        if num == 0:
+            diagonal = [self.game_board()[0][0], self.game_board()[1][1], self.game_board()[2][2]]
+            return diagonal
+        elif num == 1:
+            diagonal = [self.game_board()[0][2], self.game_board()[1][1], self.game_board()[2][0]]
+            return diagonal
 

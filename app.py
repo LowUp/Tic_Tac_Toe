@@ -2,18 +2,12 @@ import time
 
 from Rules import Player
 from Rules import ComputerPlayer
+from Rules import Game
 import random
 
-rows_number = 3
-columns_number = 3
-diagonals_number = 2
-blank = "-"
+board = Game()
 
-game_board = [
-    [blank for i in range(rows_number)],
-    [blank for i in range(rows_number)],
-    [blank for i in range(rows_number)]
-]
+game_board = board.game_board()
 
 player1 = Player(game_board, input("Player 1 enter your username: ").upper())
 
@@ -28,43 +22,43 @@ else:
 
 
 def player_details():
-    game_details = Player(game_board, "0")
-    game_details.get_refBoard()
-    game_details.get_board()
+    board.get_refBoard()
+    board.get_board()
 
 
 def check_rows(playerName, playerSymbol):
-
+    rows_number = 3
     win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
 
     for i in range(rows_number):
-        row = ''.join(player1.get_row(i))
+        row = ''.join(board.get_row(i))
         if row == win:
-            player1.get_board()
+            board.get_board()
             print(f"\n{playerName} wins")
             return True
 
 
 def check_columns(playerName, playerSymbol):
-
+    columns_number = 3
     win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
 
     for i in range(columns_number):
-        column = ''.join(player1.get_column(i))
+        column = ''.join(board.get_column(i))
         if column == win:
-            player1.get_board()
+            board.get_board()
             print(f"\n{playerName} wins")
             return True
 
 
 def check_diagonals(playerName, playerSymbol):
 
+    diagonals_number = 2
     win = f'{playerSymbol}{playerSymbol}{playerSymbol}'
 
     for i in range(diagonals_number):
-        diagonal = ''.join(player1.get_diagonal(i))
+        diagonal = ''.join(board.get_diagonal(i))
         if diagonal == win:
-            player1.get_board()
+            board.get_board()
             print(f"\n{playerName} wins")
             return True
 
@@ -76,10 +70,10 @@ def play():
     counter = 0
 
     while True:
-        player1_symbol = input(f"{player1.get_player_name()} choose your symbol (O or X): ")
-        if (player1_symbol == "O" or player1_symbol == "o") or (player1_symbol == "X" or player1_symbol == "x"):
+        player1_symbol = input(f"{player1.get_player_name()} choose your symbol (O or X): ").upper()
+        if player1_symbol == "O" or player1_symbol == "X":
             print("Success")
-            if player1_symbol == "O" or player1_symbol == "o":
+            if player1_symbol == "O":
                 player2_symbol = "X"
                 break
             else:
@@ -159,10 +153,6 @@ def play():
 
         except(ValueError):
             print("Wrong input")
-
-
-
-
 
 
 
