@@ -1,9 +1,14 @@
-#Player class
+import random
+
+
+# Player class
 class Player:
 
     def __init__(self, board, player_name):
         self.player_name = player_name
         self.board = board
+        self.isWinner = False
+        self.symbol = ""
 
     def game_board(self):
         return self.board
@@ -41,6 +46,16 @@ class Player:
 
     def get_player_name(self):
         return f"{self.player_name}"
+
+    def winner(self):
+        self.isWinner = True
+        return self.isWinner
+
+    def set_symbol(self, symbol):
+        self.symbol = symbol
+
+    def get_symbol(self):
+        return self.symbol.upper()
 
 
 # AI player class
@@ -86,6 +101,24 @@ class ComputerPlayer(Player):
 
     def deleteMove(self, num):
         self.getPossibleMoves().remove(num)
+
+    def get_move(self):
+        move = random.choice(self.getPossibleMoves())
+        return move
+
+
+# Unbeatable AI player
+class UnbeatableAI(ComputerPlayer):
+    def __init__(self, board, player_name):
+        super().__init__(board, player_name)
+
+    def get_move(self, position):
+        return position
+
+    # def minimax(self, player):
+    #    max_player = self.player_name
+    #    other_player = "other_player"
+
 
 # Game class
 class Game:
