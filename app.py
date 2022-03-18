@@ -1,3 +1,4 @@
+import math
 import time
 
 from Rules import Player
@@ -74,16 +75,13 @@ def check_diagonals(player_name, player_symbol, display):
 
 
 def hard_mode_ai(board):
-    best_score = -1000
+    best_score = -math.inf
     best_move = 0
-    conteur = 0
 
     for key in range(1, 10):
-        # print(board.board_keys(key))
         if board.board_keys(key).upper() == "-".upper():
-            # print(board.board_keys(key))
             player2.set_board(key, player2.get_symbol(), False)
-            score = minimax(board, 0, False, conteur)
+            score = minimax(board, 0, False)
             board.set_board(key, "-")
             if score > best_score:
                 best_score = score
@@ -92,7 +90,7 @@ def hard_mode_ai(board):
     return best_move
 
 
-def minimax(board, depth, is_maximizing, count):
+def minimax(board, depth, is_maximizing):
 
     # checks if player 1 wins
     if check_rows(player1.get_player_name(), player1.get_symbol(), False) \
@@ -113,28 +111,26 @@ def minimax(board, depth, is_maximizing, count):
 
     # The computer plays against itself to check all the possibilities and choose the right one
     if is_maximizing:
-        best_score = -1000
+        best_score = -math.inf
 
         for key in range(1, 10):
             if board.board_keys(key).upper() == "-".upper():
                 player2.set_board(key, player2.get_symbol(), False)
-                score = minimax(board, 0, False, count)
+                score = minimax(board, 0, False)
                 board.set_board(key, "-")
-                count += 1
                 if score > best_score:
                     best_score = score
 
         return best_score
 
     else:
-        best_score = 800
+        best_score = math.inf
 
         for key in range(1, 10):
             if board.board_keys(key).upper() == "-".upper():
                 player1.set_board(key, player1.get_symbol(), False)
-                score = minimax(board, depth + 1, True, count)
+                score = minimax(board, depth + 1, True)
                 board.set_board(key, "-")
-                count += 1
                 if score < best_score:
                     best_score = score
 
