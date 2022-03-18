@@ -15,7 +15,7 @@ player1 = Player(game_board, input("Player 1 enter your username: ").upper())
 player2_username = input("Player 2 enter your username: ").upper()
 
 if player2_username == "AI":
-    choice = input("choose the level difficulty of the AI\n(e = easy) or (h = hard): ").upper()
+    choice = input("choose the difficulty level of the AI\n(e = easy) or (h = hard): ").upper()
 
     if choice == "H" or choice == "HARD":
         player2 = UnbeatableAI(game_board, player2_username)
